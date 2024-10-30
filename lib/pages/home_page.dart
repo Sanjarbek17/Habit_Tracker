@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:habit_tracker/core/custom_color.dart';
 import 'package:habit_tracker/gen/assets.gen.dart';
 import 'package:habit_tracker/widgets/custom_card.dart';
@@ -10,6 +11,24 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
+      floatingActionButton: InkWell(
+        onTap: () {},
+        borderRadius: BorderRadius.circular(50),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            boxShadow: [
+              BoxShadow(
+                color: CustomColor.green.withOpacity(0.4),
+                spreadRadius: -5,
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: SvgPicture.asset(Assets.icons.plus),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 13.0, left: 13.0, right: 13.0),
@@ -54,7 +73,9 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const CustomCard(),
+                    const CustomCard(text: "Meditating", isChecked: false),
+                    // const CustomCard(text: "Sport", isChecked: false),
+                    // const CustomCard(text: "Book", isChecked: false),
                   ],
                 ),
               ),

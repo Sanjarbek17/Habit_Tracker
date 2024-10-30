@@ -3,8 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:habit_tracker/gen/assets.gen.dart';
 
 class CustomCheckBox extends StatefulWidget {
+  final bool isChecked;
   const CustomCheckBox({
     super.key,
+    required this.isChecked,
   });
 
   @override
@@ -12,7 +14,13 @@ class CustomCheckBox extends StatefulWidget {
 }
 
 class _CustomCheckBoxState extends State<CustomCheckBox> {
-  bool isChecked = false;
+  late bool isChecked;
+
+  @override
+  void initState() {
+    super.initState();
+    isChecked = widget.isChecked;
+  }
 
   @override
   Widget build(BuildContext context) {

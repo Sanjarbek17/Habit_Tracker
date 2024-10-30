@@ -15,8 +15,11 @@ class $AssetsIconsGen {
   /// File path: assets/icons/check.svg
   String get check => 'assets/icons/check.svg';
 
+  /// File path: assets/icons/plus.svg
+  String get plus => 'assets/icons/plus.svg';
+
   /// List of all assets
-  List<String> get values => [check];
+  List<String> get values => [check, plus];
 }
 
 class $AssetsImagesGen {
