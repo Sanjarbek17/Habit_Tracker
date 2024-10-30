@@ -68,7 +68,14 @@ class HomePage extends StatelessWidget {
                         const Spacer(),
                         TextButton(
                           onPressed: () {},
-                          child: const Text('See All', style: TextStyle(color: CustomColor.yellowText)),
+                          child: const Text(
+                            'See All',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: CustomColor.yellowText,
+                            ),
+                          ),
                         ),
                       ],
                     ),
