@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/custom_color.dart';
 import 'package:habit_tracker/pages/home_page.dart';
 import 'package:habit_tracker/pages/progress_page.dart';
+import 'package:habit_tracker/pages/settings_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +22,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   final List<Widget> _pages = [
     const HomePage(),
     const ProgressPage(),
-    const Placeholder(),
+    const SettingsPage(),
     // const SettingsPage(),
   ];
 

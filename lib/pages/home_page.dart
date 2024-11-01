@@ -44,10 +44,7 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  image: DecorationImage(
-                    image: Assets.images.group170.provider(),
-                    fit: BoxFit.cover,
-                  ),
+                  image: DecorationImage(image: Assets.images.group170.provider(), fit: BoxFit.cover),
                 ),
                 child: const Row(
                   children: [
@@ -68,14 +65,7 @@ class HomePage extends StatelessWidget {
                         const Spacer(),
                         TextButton(
                           onPressed: () {},
-                          child: const Text(
-                            'See All',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: CustomColor.yellowText,
-                            ),
-                          ),
+                          child: const Text('See All', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: CustomColor.yellowText)),
                         ),
                       ],
                     ),
