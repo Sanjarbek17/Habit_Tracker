@@ -1,8 +1,8 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:habit_tracker/core/custom_color.dart';
 import 'package:habit_tracker/gen/assets.gen.dart';
+import 'package:habit_tracker/widgets/custom_dropdown_button.dart';
 import 'package:habit_tracker/widgets/progress_card.dart';
 
 class ProgressPage extends StatefulWidget {
@@ -14,6 +14,20 @@ class ProgressPage extends StatefulWidget {
 
 class _ProgressPageState extends State<ProgressPage> {
   String dropdownValue = 'Today';
+
+  List<List<String>> items = [
+    ['Today', 'Today'],
+    ['Yesterday', 'Yesterday'],
+    ['Last 7 days', 'Last 7 days'],
+    ['Last 30 days', 'Last 30 days'],
+  ];
+
+  void updateValue(String? value) {
+    setState(() {
+      dropdownValue = value!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,22 +41,10 @@ class _ProgressPageState extends State<ProgressPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Progress Report', style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
-              DropdownButtonHideUnderline(
-                child: DropdownButton2<String>(
-                  value: dropdownValue,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue = newValue!;
-                    });
-                  },
-                  items: const [
-                    DropdownMenuItem(value: 'Today', child: Text('Today')),
-                    DropdownMenuItem(value: 'This Week', child: Text('This Week')),
-                    DropdownMenuItem(value: 'This Month', child: Text('This Month')),
-                  ],
-                  buttonStyleData: ButtonStyleData(decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), color: CustomColor.greyBg)),
-                  dropdownStyleData: const DropdownStyleData(decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: CustomColor.greyBg), elevation: 5, padding: EdgeInsets.all(10), offset: Offset(0, -10)),
-                ),
+              CustomDropdownButton(
+                dropdownValue: dropdownValue,
+                onChanged: updateValue,
+                items: items,
               ),
             ],
           ),

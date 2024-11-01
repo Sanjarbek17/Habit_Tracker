@@ -25,9 +25,12 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      width: 40,
-      decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(10)), border: Border.all(width: 2, color: isChecked ? Colors.white : Colors.black)),
+      height: isChecked ? 34 : 30,
+      width: isChecked ? 34 : 30,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
+        border: Border.all(width: 2, color: isChecked ? Colors.white : Colors.black),
+      ),
       child: InkWell(
         child: isChecked
             ? SvgPicture.asset(

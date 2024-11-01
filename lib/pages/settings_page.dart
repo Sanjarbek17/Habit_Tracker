@@ -26,12 +26,12 @@ class SettingsPage extends StatelessWidget {
                 offset: const Offset(0, 3),
               ),
             ]),
-            child: const Column(
+            child: Column(
               children: [
-                SettingsCard(title: 'Account'),
-                SettingsCard(title: 'Term and Condition'),
-                SettingsCard(title: 'Policy'),
-                SettingsCard(title: 'About App'),
+                SettingsCard(title: 'Account', onTap: () {}),
+                SettingsCard(title: 'Term and Condition', onTap: () {}),
+                SettingsCard(title: 'Policy', onTap: () {}),
+                SettingsCard(title: 'About App', onTap: () {}),
               ],
             ),
           ),
@@ -40,4 +40,3 @@ class SettingsPage extends StatelessWidget {
     );
   }
 }
-

@@ -10,4 +10,5 @@ class CustomColor {
   static const Color greyBg = Color(0xffE7E7E7);
   static const Color cardbg = Color(0xffFBFBFB);
   static const Color text = Color(0xff2F2F2F);
+  static const Color stroke = Color(0xffEDEDED);
 }
