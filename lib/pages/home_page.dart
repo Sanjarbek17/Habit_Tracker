@@ -2,11 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:habit_tracker/core/custom_color.dart';
 import 'package:habit_tracker/gen/assets.gen.dart';
+import 'package:habit_tracker/models/habit_model.dart';
+import 'package:habit_tracker/pages/all_habit_page.dart';
 import 'package:habit_tracker/widgets/add_habit.dart';
-import 'package:habit_tracker/widgets/custom_card.dart';
+import 'package:habit_tracker/widgets/habits_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  final List<HabitModel> habitList = const [
+    HabitModel(habitName: 'Drink 2L of water', isChecked: false),
+    HabitModel(habitName: 'Read 30 minutes', isChecked: false),
+    HabitModel(habitName: 'Exercise', isChecked: false),
+    HabitModel(habitName: 'Meditate', isChecked: false),
+    HabitModel(habitName: 'Write', isChecked: false),
+    HabitModel(habitName: 'Sleep 8 hours', isChecked: false),
+    HabitModel(habitName: 'Practice coding', isChecked: false),
+    HabitModel(habitName: 'Eat healthy', isChecked: false),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,26 +64,18 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Container(
-                decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        const Text("Today's Habits", style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
-                        const Spacer(),
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text('See All', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: CustomColor.yellowText)),
-                        ),
-                      ],
+              HabitsWidget(
+                habitList: habitList.getRange(0, 3).toList(),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllHabitPage(
+                        habitList: habitList,
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    const CustomCard(text: "Meditating", isChecked: false),
-                    const CustomCard(text: "Sport", isChecked: false),
-                    const CustomCard(text: "Book", isChecked: false),
-                  ],
-                ),
+                  );
+                },
               ),
             ],
           ),
