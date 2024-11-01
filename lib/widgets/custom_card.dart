@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/custom_color.dart';
+import 'package:habit_tracker/models/habit_model.dart';
+import 'package:habit_tracker/widgets/add_edit_habit.dart';
 import 'package:habit_tracker/widgets/custom_check.dart';
 
 class CustomCard extends StatefulWidget {
-  final String text;
-  final bool isChecked;
+  final HabitModel habit;
   const CustomCard({
     super.key,
-    required this.text,
-    required this.isChecked,
+    required this.habit,
   });
 
   @override
@@ -44,7 +44,7 @@ class _CustomCardState extends State<CustomCard> {
                 ),
                 child: Row(
                   children: [
-                    Text(widget.text, style: TextStyle(fontSize: 20, color: isChecked ? CustomColor.green : CustomColor.text, fontWeight: FontWeight.w600)),
+                    Text(widget.habit.habitName, style: TextStyle(fontSize: 20, color: isChecked ? CustomColor.green : CustomColor.text, fontWeight: FontWeight.w600)),
                     const Spacer(),
                     CustomCheckBox(
                       isChecked: isChecked,
@@ -83,12 +83,37 @@ class _CustomCardState extends State<CustomCard> {
                   boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.5), spreadRadius: 1, blurRadius: 5, offset: const Offset(0, 3))],
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Edit', style: TextStyle(color: CustomColor.greyText, fontSize: 12, fontWeight: FontWeight.w600)),
-                    Text('Delete', style: TextStyle(color: CustomColor.greyText, fontSize: 12, fontWeight: FontWeight.w600)),
+                    InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AddEditHabit(
+                              goal: widget.habit.goal,
+                              habitName: widget.habit.habitName,
+                            ),
+                          );
+                        },
+                        child: const Row(
+                          children: [
+                            Text('Edit', style: TextStyle(color: CustomColor.greyText, fontSize: 12, fontWeight: FontWeight.w600)),
+                          ],
+                        )),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          isSelected = false;
+                        });
+                      },
+                      child: const Row(
+                        children: [
+                          Text('Delete', style: TextStyle(color: CustomColor.greyText, fontSize: 12, fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

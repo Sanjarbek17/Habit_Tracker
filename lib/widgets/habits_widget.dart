@@ -41,8 +41,7 @@ class HabitsWidget extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return CustomCard(
-                text: habitList[index].habitName,
-                isChecked: habitList[index].isChecked,
+                habit: habitList[index]
               );
             },
           ),

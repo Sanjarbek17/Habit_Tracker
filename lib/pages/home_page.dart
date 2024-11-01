@@ -4,21 +4,21 @@ import 'package:habit_tracker/core/custom_color.dart';
 import 'package:habit_tracker/gen/assets.gen.dart';
 import 'package:habit_tracker/models/habit_model.dart';
 import 'package:habit_tracker/pages/all_habit_page.dart';
-import 'package:habit_tracker/widgets/add_habit.dart';
+import 'package:habit_tracker/widgets/add_edit_habit.dart';
 import 'package:habit_tracker/widgets/habits_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   final List<HabitModel> habitList = const [
-    HabitModel(habitName: 'Drink 2L of water', isChecked: false),
-    HabitModel(habitName: 'Read 30 minutes', isChecked: false),
-    HabitModel(habitName: 'Exercise', isChecked: false),
-    HabitModel(habitName: 'Meditate', isChecked: false),
-    HabitModel(habitName: 'Write', isChecked: false),
-    HabitModel(habitName: 'Sleep 8 hours', isChecked: false),
-    HabitModel(habitName: 'Practice coding', isChecked: false),
-    HabitModel(habitName: 'Eat healthy', isChecked: false),
+    HabitModel(habitName: 'Drink 2L of water', isChecked: false, goal: '2L'),
+    HabitModel(habitName: 'Read 30 minutes', isChecked: false, goal: '30 minutes'),
+    HabitModel(habitName: 'Exercise', isChecked: false, goal: '1 hour'),
+    HabitModel(habitName: 'Meditate', isChecked: false, goal: '20 minutes'),
+    HabitModel(habitName: 'Write', isChecked: false, goal: '1 hour'),
+    HabitModel(habitName: 'Sleep 8 hours', isChecked: false, goal: '8 hours'),
+    HabitModel(habitName: 'Practice coding', isChecked: false, goal: '2 hours'),
+    HabitModel(habitName: 'Eat healthy', isChecked: false, goal: '3 meals'),
   ];
 
   @override
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
         onTap: () {
           showDialog(
             context: context,
-            builder: (context) => const AddHabit(),
+            builder: (context) => const AddEditHabit(),
           );
         },
         borderRadius: BorderRadius.circular(50),
