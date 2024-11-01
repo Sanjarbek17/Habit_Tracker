@@ -84,7 +84,24 @@ class _AddHabitState extends State<AddHabit> {
               ],
             ),
             const SizedBox(height: 20),
-            
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                    backgroundColor: CustomColor.yellowText,
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                    child: Text('Create Habit', style: TextStyle(color: CustomColor.bgColor, fontSize: 16, fontWeight: FontWeight.w800)),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

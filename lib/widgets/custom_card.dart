@@ -17,6 +17,13 @@ class CustomCard extends StatefulWidget {
 
 class _CustomCardState extends State<CustomCard> {
   bool isSelected = false;
+  bool isChecked = false;
+
+  @override
+  void initState() {
+    isChecked = isChecked;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +38,22 @@ class _CustomCardState extends State<CustomCard> {
                 height: 60,
                 width: MediaQuery.sizeOf(context).width - 40,
                 padding: const EdgeInsets.symmetric(horizontal: 14),
-                decoration: const BoxDecoration(color: CustomColor.lightGreen, borderRadius: BorderRadius.all(Radius.circular(10))),
+                decoration: BoxDecoration(
+                  color: isChecked ? CustomColor.lightGreen : CustomColor.cardbg,
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
                 child: Row(
                   children: [
-                    Text(widget.text, style: const TextStyle(fontSize: 20, color: CustomColor.green, fontWeight: FontWeight.w600)),
+                    Text(widget.text, style: TextStyle(fontSize: 20, color: isChecked ? CustomColor.green : CustomColor.text, fontWeight: FontWeight.w600)),
                     const Spacer(),
-                    CustomCheckBox(isChecked: widget.isChecked),
+                    CustomCheckBox(
+                      isChecked: isChecked,
+                      onTap: () {
+                        setState(() {
+                          isChecked = !isChecked;
+                        });
+                      },
+                    ),
                     InkWell(
                       onTap: () {
                         setState(() {

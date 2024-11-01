@@ -2,25 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:habit_tracker/gen/assets.gen.dart';
 
-class CustomCheckBox extends StatefulWidget {
+class CustomCheckBox extends StatelessWidget {
   final bool isChecked;
+  final void Function() onTap;
   const CustomCheckBox({
     super.key,
     required this.isChecked,
+    required this.onTap,
   });
-
-  @override
-  State<CustomCheckBox> createState() => _CustomCheckBoxState();
-}
-
-class _CustomCheckBoxState extends State<CustomCheckBox> {
-  late bool isChecked;
-
-  @override
-  void initState() {
-    super.initState();
-    isChecked = widget.isChecked;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +21,13 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
         border: Border.all(width: 2, color: isChecked ? Colors.white : Colors.black),
       ),
       child: InkWell(
+        onTap: onTap,
         child: isChecked
             ? SvgPicture.asset(
                 Assets.icons.check,
                 fit: BoxFit.cover,
               )
             : const SizedBox(),
-        onTap: () {
-          setState(() {
-            isChecked = !isChecked;
-          });
-        },
       ),
     );
   }
