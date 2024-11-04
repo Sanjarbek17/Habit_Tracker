@@ -53,6 +53,8 @@ class _AddEditHabitState extends State<AddEditHabit> {
   void initState() {
     goalController.text = widget.habit?.goal ?? '';
     habitNameController.text = widget.habit?.habitName ?? '';
+    dropdownValue = widget.habit?.period.toString() ?? '30';
+    dropdownValue2 = widget.habit?.step.toString() ?? '1';
     super.initState();
   }
 
