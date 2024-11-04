@@ -8,7 +8,7 @@ class HabitCubit extends Cubit<HabitState> {
   HabitCubit({required this.habitRepository}) : super(HabitState(habits: []));
 
   void addHabit(HabitModel habit) async {
-    final List<HabitModel> newHabits = List.from(state.habits)..add(habit);
+    final List<HabitModel> newHabits = state.habits..add(habit);
     await habitRepository.addOrRemoveHabit(newHabits);
     emit(state.copyWith(newHabits));
   }
@@ -24,11 +24,10 @@ class HabitCubit extends Cubit<HabitState> {
     emit(state.copyWith(state.habits));
   }
 
-  void updateHabit(HabitModel habit) async {
-    final List<HabitModel> newHabits = List.from(state.habits);
-    final int index = newHabits.indexWhere((element) => element == habit);
-    newHabits[index] = habit;
-    await habitRepository.addOrRemoveHabit(newHabits);
-    emit(state.copyWith(newHabits));
+  void updateHabit(HabitModel habit, HabitModel oldHabit) async {
+    final int index = state.habits.indexWhere((element) => element == oldHabit);
+    state.habits[index] = habit;
+    await habitRepository.addOrRemoveHabit(state.habits);
+    emit(state.copyWith(state.habits));
   }
 }

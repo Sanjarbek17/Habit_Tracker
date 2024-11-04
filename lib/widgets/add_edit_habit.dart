@@ -6,13 +6,10 @@ import 'package:habit_tracker/models/habit_model.dart';
 import 'package:habit_tracker/widgets/custom_dropdown_button.dart';
 
 class AddEditHabit extends StatefulWidget {
-  // TODO: change to habitmodel
-  final String? goal;
-  final String? habitName;
+  final HabitModel? habit;
   const AddEditHabit({
     super.key,
-    this.goal,
-    this.habitName,
+    this.habit,
   });
 
   @override
@@ -54,8 +51,8 @@ class _AddEditHabitState extends State<AddEditHabit> {
 
   @override
   void initState() {
-    goalController.text = widget.goal ?? '';
-    habitNameController.text = widget.habitName ?? '';
+    goalController.text = widget.habit?.goal ?? '';
+    habitNameController.text = widget.habit?.habitName ?? '';
     super.initState();
   }
 
@@ -72,7 +69,7 @@ class _AddEditHabitState extends State<AddEditHabit> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(widget.goal != null ? 'Edit Habit Goal' : 'Create New Habit Goal', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(widget.habit != null ? 'Edit Habit Goal' : 'Create New Habit Goal', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 IconButton(
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -112,17 +109,29 @@ class _AddEditHabitState extends State<AddEditHabit> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      context.read<HabitCubit>().addHabit(
-                        HabitModel(
-                          goal: goalController.text,
-                          habitName: habitNameController.text,
-                          period: int.parse(dropdownValue),
-                          step: int.parse(dropdownValue2),
-                          count: 0,
-                          updatedDate: DateTime.now(),
-                          createdDate: DateTime.now(),
-                        ),
-                      );
+                      if (widget.habit == null) {
+                        context.read<HabitCubit>().addHabit(HabitModel(
+                        goal: goalController.text,
+                        habitName: habitNameController.text,
+                        period: int.parse(dropdownValue),
+                        step: int.parse(dropdownValue2),
+                        count: 0,
+                        updatedDate: DateTime.now().subtract(const Duration(days: 1)),
+                        createdDate: DateTime.now(),
+                      ),);
+                      } else {
+                        context.read<HabitCubit>().updateHabit(
+                              widget.habit!.copyWith(
+                                goal: goalController.text,
+                                habitName: habitNameController.text,
+                                period: int.parse(dropdownValue),
+                                step: int.parse(dropdownValue2),
+                                updatedDate: DateTime.now(),
+                              ),
+                              widget.habit!,
+                            );
+                        // context.read<HabitCubit>().removeHabit(widget.habit!);
+                      }
                       Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(
@@ -131,14 +140,14 @@ class _AddEditHabitState extends State<AddEditHabit> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
-                      child: Text(widget.goal != null ? 'Update' : 'Create Habit', style: const TextStyle(color: CustomColor.bgColor, fontSize: 16, fontWeight: FontWeight.w800)),
+                      child: Text(widget.habit != null ? 'Update' : 'Create Habit', style: const TextStyle(color: CustomColor.bgColor, fontSize: 16, fontWeight: FontWeight.w800)),
                     ),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            if (widget.goal != null)
+            if (widget.habit != null)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

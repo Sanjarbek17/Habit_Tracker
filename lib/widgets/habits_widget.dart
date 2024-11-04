@@ -36,14 +36,16 @@ class HabitsWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          ListView.builder(
-            itemCount: habitList.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return CustomCard(
-                habit: habitList[index]
-              );
-            },
+          SingleChildScrollView(
+            child: ListView.builder(
+              itemCount: habitList.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return CustomCard(
+                  habit: habitList[index]
+                );
+              },
+            ),
           ),
         ],
       ),

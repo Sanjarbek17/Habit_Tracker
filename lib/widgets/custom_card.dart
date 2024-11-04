@@ -23,7 +23,9 @@ class _CustomCardState extends State<CustomCard> {
 
   @override
   void initState() {
-    isChecked = isChecked;
+    print('checked ${widget.habit.updatedDate.day}');
+    isChecked = widget.habit.updatedDate.day == DateTime.now().day;
+    print('checked $isChecked');
     super.initState();
   }
 
@@ -52,7 +54,8 @@ class _CustomCardState extends State<CustomCard> {
                       isChecked: isChecked,
                       onTap: () {
                         context.read<HabitCubit>().updateHabit(
-                              widget.habit.copyWith(isChecked: !isChecked),
+                              widget.habit.copyWith(updatedDate: DateTime.now()),
+                              widget.habit,
                             );
                         setState(() {
                           isChecked = !isChecked;
@@ -97,8 +100,7 @@ class _CustomCardState extends State<CustomCard> {
                           showDialog(
                             context: context,
                             builder: (context) => AddEditHabit(
-                              goal: widget.habit.goal,
-                              habitName: widget.habit.habitName,
+                              habit: widget.habit,
                             ),
                           );
                         },
