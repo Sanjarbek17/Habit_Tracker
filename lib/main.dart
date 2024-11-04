@@ -46,6 +46,11 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         body: SafeArea(
           child: PageView(
             controller: _tabController,
+            onPageChanged: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
             children: _pages,
           ),
         ),
