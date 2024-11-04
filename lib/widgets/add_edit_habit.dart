@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:habit_tracker/bloc/habit_cubit.dart';
 import 'package:habit_tracker/core/custom_color.dart';
+import 'package:habit_tracker/models/habit_model.dart';
 import 'package:habit_tracker/widgets/custom_dropdown_button.dart';
 
 class AddEditHabit extends StatefulWidget {
+  // TODO: change to habitmodel
   final String? goal;
   final String? habitName;
   const AddEditHabit({
@@ -16,21 +20,21 @@ class AddEditHabit extends StatefulWidget {
 }
 
 class _AddEditHabitState extends State<AddEditHabit> {
-  String dropdownValue = '1 month (30 days)';
-  String dropdownValue2 = 'Everyday';
+  String dropdownValue = '30';
+  String dropdownValue2 = '1';
 
   List<List<String>> items = [
-    ['1 month (30 days)', '1 month (30 days)'],
-    ['3 months (90 days)', '3 months (90 days)'],
-    ['6 months (180 days)', '6 months (180 days)'],
-    ['1 year (365 days)', '1 year (365 days)'],
+    ['30', '1 month (30 days)'],
+    ['90', '3 months (90 days)'],
+    ['180', '6 months (180 days)'],
+    ['365', '1 year (365 days)'],
   ];
 
   List<List<String>> items2 = [
-    ['Everyday', 'Everyday'],
-    ['Every 2 days', 'Every 2 days'],
-    ['Every 3 days', 'Every 3 days'],
-    ['Every 4 days', 'Every 4 days'],
+    ['1', 'Everyday'],
+    ['2', 'Every 2 days'],
+    ['3', 'Every 3 days'],
+    ['4', 'Every 4 days'],
   ];
 
   void updateValue(String? value) {
@@ -86,7 +90,11 @@ class _AddEditHabitState extends State<AddEditHabit> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('Period Time', style: TextStyle(fontSize: 14, color: CustomColor.text, fontWeight: FontWeight.w600)),
-                CustomDropdownButton(dropdownValue: dropdownValue, onChanged: updateValue, items: items),
+                CustomDropdownButton(
+                  dropdownValue: dropdownValue,
+                  onChanged: updateValue,
+                  items: items,
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -104,6 +112,17 @@ class _AddEditHabitState extends State<AddEditHabit> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
+                      context.read<HabitCubit>().addHabit(
+                        HabitModel(
+                          goal: goalController.text,
+                          habitName: habitNameController.text,
+                          period: int.parse(dropdownValue),
+                          step: int.parse(dropdownValue2),
+                          count: 0,
+                          updatedDate: DateTime.now(),
+                          createdDate: DateTime.now(),
+                        ),
+                      );
                       Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(

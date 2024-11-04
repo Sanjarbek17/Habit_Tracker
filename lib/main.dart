@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:habit_tracker/bloc/habit_cubit.dart';
 import 'package:habit_tracker/core/custom_color.dart';
+import 'package:habit_tracker/di.dart';
 import 'package:habit_tracker/pages/home_page.dart';
 import 'package:habit_tracker/pages/progress_page.dart';
 import 'package:habit_tracker/pages/settings_page.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
+  runApp(const App());
+}
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => locator<HabitCubit>()..getHabits(),
+      child: const MyApp(),
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {

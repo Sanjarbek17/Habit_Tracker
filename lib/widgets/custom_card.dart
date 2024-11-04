@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:habit_tracker/bloc/habit_cubit.dart';
 import 'package:habit_tracker/core/custom_color.dart';
 import 'package:habit_tracker/models/habit_model.dart';
 import 'package:habit_tracker/widgets/add_edit_habit.dart';
@@ -49,6 +51,9 @@ class _CustomCardState extends State<CustomCard> {
                     CustomCheckBox(
                       isChecked: isChecked,
                       onTap: () {
+                        context.read<HabitCubit>().updateHabit(
+                              widget.habit.copyWith(isChecked: !isChecked),
+                            );
                         setState(() {
                           isChecked = !isChecked;
                         });
@@ -104,6 +109,7 @@ class _CustomCardState extends State<CustomCard> {
                         )),
                     InkWell(
                       onTap: () {
+                        context.read<HabitCubit>().removeHabit(widget.habit);
                         setState(() {
                           isSelected = false;
                         });

@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:habit_tracker/bloc/habit_cubit.dart';
+import 'package:habit_tracker/bloc/habit_state.dart';
 import 'package:habit_tracker/core/custom_color.dart';
 import 'package:habit_tracker/gen/assets.gen.dart';
-import 'package:habit_tracker/models/habit_model.dart';
 import 'package:habit_tracker/pages/all_habit_page.dart';
 import 'package:habit_tracker/widgets/add_edit_habit.dart';
 import 'package:habit_tracker/widgets/habits_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-  final List<HabitModel> habitList = const [];
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +41,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // TODO: Must Dynamic date
               const Text('Sun, 1 March 2022', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(height: 20),
               const Text('Habit Tracker', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
@@ -55,16 +62,20 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              HabitsWidget(
-                habitList: habitList.getRange(0, 3).toList(),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AllHabitPage(
-                        habitList: habitList,
-                      ),
-                    ),
+              BlocBuilder<HabitCubit, HabitState>(
+                builder: (context, state) {
+                  return HabitsWidget(
+                    habitList: state.habits.length > 2 ? state.habits.getRange(0, 3).toList() : state.habits,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AllHabitPage(
+                            habitList: state.habits,
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
