@@ -8,6 +8,7 @@ import 'package:habit_tracker/gen/assets.gen.dart';
 import 'package:habit_tracker/pages/all_habit_page.dart';
 import 'package:habit_tracker/widgets/add_edit_habit.dart';
 import 'package:habit_tracker/widgets/habits_widget.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,7 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +41,10 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // TODO: Must Dynamic date
-              const Text('Sun, 1 March 2022', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text(
+                DateFormat('EEE, d MMM yyyy').format(DateTime.now()),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 20),
               const Text('Habit Tracker', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
               const SizedBox(height: 20),

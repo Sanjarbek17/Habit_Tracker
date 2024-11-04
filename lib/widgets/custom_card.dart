@@ -22,16 +22,10 @@ class _CustomCardState extends State<CustomCard> {
   bool isChecked = false;
 
   @override
-  void initState() {
-    print('checked ${widget.habit.updatedDate.day}');
-    isChecked = widget.habit.updatedDate.day == DateTime.now().day;
-    print('checked $isChecked');
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    isChecked = widget.habit.updatedDate.day == DateTime.now().day;
     return Padding(
+      key: UniqueKey(),
       padding: const EdgeInsets.only(bottom: 17.0),
       child: Stack(
         alignment: Alignment.centerRight,
@@ -54,7 +48,14 @@ class _CustomCardState extends State<CustomCard> {
                       isChecked: isChecked,
                       onTap: () {
                         context.read<HabitCubit>().updateHabit(
-                              widget.habit.copyWith(updatedDate: DateTime.now()),
+                              widget.habit.copyWith(
+                                updatedDate: isChecked
+                                    ? DateTime.now().subtract(
+                                        const Duration(days: 1),
+                                      )
+                                    : DateTime.now(),
+                                count: isChecked ? widget.habit.count - 1 : widget.habit.count + 1,
+                              ),
                               widget.habit,
                             );
                         setState(() {

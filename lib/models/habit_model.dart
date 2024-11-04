@@ -27,7 +27,6 @@ class HabitModel extends Equatable {
     int? count,
     DateTime? updatedDate,
     DateTime? createdDate,
-    // TODO: Created logic to update count
     bool? isChecked,
   }) {
     return HabitModel(

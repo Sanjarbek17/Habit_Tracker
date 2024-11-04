@@ -110,15 +110,17 @@ class _AddEditHabitState extends State<AddEditHabit> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (widget.habit == null) {
-                        context.read<HabitCubit>().addHabit(HabitModel(
-                        goal: goalController.text,
-                        habitName: habitNameController.text,
-                        period: int.parse(dropdownValue),
-                        step: int.parse(dropdownValue2),
-                        count: 0,
-                        updatedDate: DateTime.now().subtract(const Duration(days: 1)),
-                        createdDate: DateTime.now(),
-                      ),);
+                        context.read<HabitCubit>().addHabit(
+                              HabitModel(
+                                goal: goalController.text,
+                                habitName: habitNameController.text,
+                                period: int.parse(dropdownValue),
+                                step: int.parse(dropdownValue2),
+                                count: 0,
+                                updatedDate: DateTime.now().subtract(const Duration(days: 1)),
+                                createdDate: DateTime.now(),
+                              ),
+                            );
                       } else {
                         context.read<HabitCubit>().updateHabit(
                               widget.habit!.copyWith(
@@ -126,12 +128,9 @@ class _AddEditHabitState extends State<AddEditHabit> {
                                 habitName: habitNameController.text,
                                 period: int.parse(dropdownValue),
                                 step: int.parse(dropdownValue2),
-                                updatedDate: DateTime.now(),
                               ),
                               widget.habit!,
-                            );
-                        // context.read<HabitCubit>().removeHabit(widget.habit!);
-                      }
+                            ); }
                       Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(
